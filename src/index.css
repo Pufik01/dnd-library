@@ -1,0 +1,20 @@
+/* Подключение слоёв Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Глобальные базовые стили приложения */
+:root {
+  /* Чуть приятнее рендер шрифтов */
+  -webkit-font-smoothing: antialiased;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
