@@ -1,16 +1,81 @@
-# React + Vite
+# D&D 5e Library
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Веб-библиотека-справочник по Dungeons & Dragons 5-й редакции. Заклинания, монстры, классы, предметы и расы в одном месте — с поиском, детальными страницами и избранным.
 
-Currently, two official plugins are available:
+Данные берутся из официального бесплатного [D&D 5e API](https://www.dnd5eapi.co) (только SRD-контент, открытая лицензия).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Возможности
 
-## React Compiler
+- **Пять разделов:** Заклинания, Монстры, Классы, Предметы, Расы
+- **Поиск внутри раздела** — мгновенная фильтрация по названию
+- **Глобальный поиск** по всем разделам сразу, результаты сгруппированы
+- **Детальные страницы** с полями под каждую сущность (характеристики монстра, школа заклинания, стоимость предмета и т.д.)
+- **Избранное** на localStorage — сохранённые записи переживают перезагрузку
+- **Адаптивная вёрстка** — от мобильного до десктопа
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Стек
 
-## Expanding the ESLint configuration
+- [React 18](https://react.dev/) + [Vite](https://vitejs.dev/)
+- [React Router](https://reactrouter.com/) — маршрутизация вкладок и детальных страниц
+- [Tailwind CSS](https://tailwindcss.com/) — стили
+- [TanStack Query](https://tanstack.com/query) — загрузка и кэширование данных
+- [lucide-react](https://lucide.dev/) — иконки
+- localStorage — хранение избранного
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Запуск локально
+
+Нужен установленный [Node.js](https://nodejs.org/) (версия 18 или новее).
+
+```bash
+# Установить зависимости
+npm install
+
+# Запустить dev-сервер
+npm run dev
+```
+
+Откроется на `http://localhost:5173`.
+
+## Сборка
+
+```bash
+# Собрать продакшен-версию в папку dist/
+npm run build
+
+# Локально посмотреть собранную версию
+npm run preview
+```
+
+## Структура проекта
+
+```
+src/
+├─ components/
+│  ├─ cards/    Карточки записей (заклинание, монстр и т.д.)
+│  ├─ layout/   Каркас: шапка, вкладки, общий вид списка и детали
+│  └─ ui/       Переиспользуемые элементы (поиск, спиннер, кнопки)
+├─ hooks/       Логика: загрузка данных, фильтры, избранное
+├─ lib/         Доступ к API, константы, хелперы
+├─ pages/       Страницы разделов, детальные страницы, поиск, избранное
+├─ routes/      Описание маршрутов
+├─ App.jsx
+└─ main.jsx
+```
+
+Весь доступ к данным изолирован в `src/lib/api.js` — это позволяет при желании заменить API на локальные JSON-файлы, не трогая остальное приложение.
+
+## Деплой
+
+Проект — статическая сборка, разворачивается на [Vercel](https://vercel.com/) или [Netlify](https://netlify.com/).
+
+Настройки сборки:
+- Build command: `npm run build`
+- Output directory: `dist`
+
+Для корректной работы клиентской маршрутизации в репозитории есть конфиги SPA-перенаправлений: `public/_redirects` (Netlify) и `vercel.json` (Vercel).
+
+## Лицензия и данные
+
+Контент предоставляется через D&D 5e API в рамках [Open Game License (SRD)](https://www.dnd5eapi.co). Проект некоммерческий, создан для личного использования как справочник.
+
+Dungeons & Dragons — торговая марка Wizards of the Coast. Проект не аффилирован с Wizards of the Coast.
